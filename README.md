@@ -9,7 +9,7 @@ You must be signed up for the following services:
 # Running the sample
 
 The basic steps for running the Amazon DynamoDB sample are:
-  1. Create a credentials file in the location C:\Users\\\<user>\.aws\ with name "credentials".
+  1. Create a credentials file in the location C:\Users\\\<user>\\\.aws\ with name "credentials".
   2. Create a new profile ```development``` and fill in your Access Key ID and Secret Access Key:
   
     ```
