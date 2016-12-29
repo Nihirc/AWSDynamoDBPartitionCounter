@@ -1,5 +1,6 @@
 ﻿using Amazon;
 using Amazon.DynamoDBv2;
+using System;
 using System.Configuration;
 
 namespace AWSDynamoDBPartitionCounter

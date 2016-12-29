@@ -8,9 +8,13 @@ namespace AWSDynamoDBPartitionCounter
     internal class PartitionCounter
     {
         public string TableName { get; private set; }
-        private AmazonDynamoDBClient client = null;
-        private AmazonDynamoDBStreamsClient streamsClient = null;
+        private readonly AmazonDynamoDBClient client;
+        private readonly AmazonDynamoDBStreamsClient streamsClient;
 
+        /// <summary>
+        /// Constructor that takes a table name as input.
+        /// </summary>
+        /// <param name="tableName"></param>
         public PartitionCounter(string tableName)
         {
             this.TableName = tableName;
@@ -26,15 +30,15 @@ namespace AWSDynamoDBPartitionCounter
         {
             try
             {
-                string streamARN = TableStreamValidator();
+                var streamARN = TableStreamValidator();
                 if (streamARN != null)
                 {
-                    DescribeStreamRequest request = new DescribeStreamRequest()
+                    var request = new DescribeStreamRequest
                     {
                         StreamArn = streamARN
                     };
 
-                    DescribeStreamResponse response = streamsClient.DescribeStream(request);
+                    var response = streamsClient.DescribeStream(request);
                     return response;
                 }
                 return null;
@@ -57,12 +61,12 @@ namespace AWSDynamoDBPartitionCounter
             {
                 if (client != null)
                 {
-                    DescribeTableRequest request = new DescribeTableRequest(TableName);
-                    TableDescription tableDescription = client.DescribeTable(request).Table;
+                    var request = new DescribeTableRequest(TableName);
+                    var tableDescription = client.DescribeTable(request).Table;
 
                     if (tableDescription.TableStatus.Value == "ACTIVE")
                     {
-                        if(tableDescription.StreamSpecification.StreamEnabled == true)
+                        if(tableDescription.StreamSpecification.StreamEnabled)
                         {
                             Console.WriteLine("Stream ARN: " + tableDescription.LatestStreamArn);
                             return tableDescription.LatestStreamArn;
@@ -99,11 +103,11 @@ namespace AWSDynamoDBPartitionCounter
         {
             try
             {
-                int partitionCount = 0;
-                DescribeStreamResponse streamResponse = GetStreamDescription();
+                var partitionCount = 0;
+                var streamResponse = GetStreamDescription();
                 if (streamResponse != null)
                 {
-                    List<Shard> listOfShards = streamResponse.StreamDescription.Shards;
+                    var listOfShards = streamResponse.StreamDescription.Shards;
 
                     foreach (Shard shard in listOfShards)
                     {
