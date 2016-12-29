@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("AWSDynamoDBPartitionCounter")]
 [assembly: AssemblyDescription("Console app to count the number of partitions for DynamoDB")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Nihir Chadderwala")]
+[assembly: AssemblyCompany("Nihir C")]
 [assembly: AssemblyProduct("AWSDynamoDBPartitionCounter")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
